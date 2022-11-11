@@ -17,7 +17,7 @@ carManager.Add(new Car
 
 foreach (var car in carManager.GetAll())
 {
-    Console.WriteLine(car.Description);
+    Console.WriteLine($"{car.Id} {car.Description}");
 }
 
 IBrandService brandManager = new BrandManager(new EfBrandDal());

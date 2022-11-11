@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            if (car.DailyPrice > 0 && car.Description.Length<=2)
+            if (car.DailyPrice > 0 && car.Description.Length>=2)
             {
                 _carDal.Add(car);
             }
