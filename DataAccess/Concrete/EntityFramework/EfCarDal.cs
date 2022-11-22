@@ -4,57 +4,31 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, CarRentalProjectContext>, ICarDal
     {
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        public List<CarDetailsDto> GetCarDetails()
         {
-            using (CarRentalProjectContext dbContext = new CarRentalProjectContext())
+            using (CarRentalProjectContext context = new CarRentalProjectContext())
             {
-                return filter == null ? dbContext.Set<Car>().ToList() : dbContext.Set<Car>().Where(filter).ToList();
-            }
-        }
-
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            using (CarRentalProjectContext dbContext = new CarRentalProjectContext())
-            {
-                return dbContext.Set<Car>().SingleOrDefault(filter);
-            }
-        }
-
-        public void Add(Car entity)
-        {
-            using (CarRentalProjectContext dbContext = new CarRentalProjectContext())
-            {
-                var addedEntity = dbContext.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                dbContext.SaveChanges();
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (CarRentalProjectContext dbContext = new CarRentalProjectContext())
-            {
-                var updatedEntity = dbContext.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                dbContext.SaveChanges();
-            }
-        }
-
-        public void Delete(Car entity)
-        {
-            using (CarRentalProjectContext dbContext = new CarRentalProjectContext())
-            {
-                var deletedEntity = dbContext.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                dbContext.SaveChanges();
+                var result = from car in context.Cars
+                    join color in context.Colors on car.ColorId equals color.ColorId
+                    join brand in context.Brands on car.BrandId equals brand.BrandId
+                    select new CarDetailsDto
+                    {
+                        Id = car.Id,
+                        BrandName = brand.BrandName,
+                        ColorName = color.ColorName,
+                        DailyPrice = car.DailyPrice,
+                    };
+                return result.ToList();
             }
         }
     }

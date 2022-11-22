@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -94,6 +95,11 @@ namespace DataAccess.Concrete.InMemory
         {
             Car carToDelete = _cars.FirstOrDefault(c => c.Id == entity.Id);
             _cars.Remove(carToDelete);
+        }
+
+        public List<CarDetailsDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }
