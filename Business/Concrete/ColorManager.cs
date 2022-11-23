@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -19,24 +20,27 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public IResult Add(Color color)
         {
             _colorDal.Add(color);
+            return new SuccessResult();
         }
 
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
             _colorDal.Update(color);
+            return new SuccessResult();
         }
 
-        public void Delete(Color color)
+        public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
+            return new SuccessResult();
         }
 
-        public List<Color> GetAll(Expression<Func<Color, bool>> filter = null)
+        public IDataResult<List<Color>> GetAll(Expression<Func<Color, bool>> filter = null)
         {
-            return _colorDal.GetAll(filter);
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(filter));
         }
     }
 }

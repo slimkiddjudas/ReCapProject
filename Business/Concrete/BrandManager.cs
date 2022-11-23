@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -19,24 +20,27 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
+            return new SuccessResult();
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
+            return new SuccessResult();
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
+            return new SuccessResult();
         }
 
-        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null)
+        public IDataResult<List<Brand>> GetAll(Expression<Func<Brand, bool>> filter = null)
         {
-            return _brandDal.GetAll(filter);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(filter));
         }
     }
 }
