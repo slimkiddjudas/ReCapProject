@@ -16,5 +16,11 @@ namespace Business.Constants
         public static string CarsListedByColorId = "Arabalar renklerine göre listelendi.";
         public static string InvalidCarDescription = "Araba açıklaması geçersiz.";
         public static string InvalidCarDailyPrice = "Araba günlük fiyatı geçersiz.";
+
+        public static string UserAdded = "Kullanıcı eklendi.";
+
+        public static string CarNotReturned = "Araba hala kullanımda.";
+
+        public static string RentalAdded = "Kiralama başarılır.";
     }
 }

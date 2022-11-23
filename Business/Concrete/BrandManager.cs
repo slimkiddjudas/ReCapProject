@@ -38,9 +38,9 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<List<Brand>> GetAll(Expression<Func<Brand, bool>> filter = null)
+        public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(filter));
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
     }
 }

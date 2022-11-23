@@ -38,9 +38,9 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<List<Color>> GetAll(Expression<Func<Color, bool>> filter = null)
+        public IDataResult<List<Color>> GetAll()
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(filter));
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
     }
 }

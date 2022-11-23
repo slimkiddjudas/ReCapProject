@@ -10,17 +10,18 @@ ColorManager colorManager = new ColorManager(new EfColorDal());
 
 BrandManager brandManager = new BrandManager(new EfBrandDal());
 
-foreach (var carDetailsDto in carManager.GetCarDetails().Data)
+UserManager userManager = new UserManager(new EfUserDal());
+
+CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+
+RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+foreach (var rentalDetail in rentalManager.GetRentalDetails().Data)
 {
-    Console.WriteLine($"{carDetailsDto.Id} {carDetailsDto.BrandName} {carDetailsDto.ColorName} {carDetailsDto.DailyPrice}");
+    Console.WriteLine($"{rentalDetail.CustomerFirstName} {rentalDetail.CustomerLastName} {rentalDetail.CarBrandName} {rentalDetail.CarColorName} {rentalDetail.RentDate}");
 }
 
-foreach (var color in colorManager.GetAll().Data)
+foreach (var customerDetails in customerManager.GetCustomerDetails().Data)
 {
-    Console.WriteLine($"{color.ColorId} {color.ColorName}");
-}
-
-foreach (var brand in brandManager.GetAll().Data)
-{
-    Console.WriteLine($"{brand.BrandId} {brand.BrandName}");
+    Console.WriteLine($"{customerDetails.CustomerId} {customerDetails.CustomerFirstName} {customerDetails.CustomerLastName} {customerDetails.CustomerEmail} {customerDetails.CompanyName}");
 }
